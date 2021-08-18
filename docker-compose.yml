@@ -1,27 +1,9 @@
 version: '3'
 services:
-  dev:
-    build:
-      context: . # from where pull files and folders (build context)
-      dockerfile: 'Dockerfile.dev'
-    ports:
-      - '3000:3000'
-    volumes:
-      - '/app/node_modules' # bookmark node_modules (don't override with the local version)
-      - '.:/app' # map local files to /usr/app
-    restart: 'always'
-  test:
-    build:
-      context: .
-      dockerfile: 'Dockerfile.dev'
-    volumes:
-      - '/app/node_modules'
-      - '.:/app'
-    command: ["yarn", "test"] # overrides the default image CMD (exec)
-  prod:
+  web:
     build: .
     ports:
-      - '8080:80'
+      - '80:80'
     restart: 'always' 
     environment: 
       - 'NODE_ENV=production'
